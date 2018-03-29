@@ -1,6 +1,7 @@
 package jpajava;
 
-import jpajava.domain.Message;
+import jpajava.domain.Address;
+import jpajava.domain.Person;
 import jpajava.util.HibernateUtil;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -11,13 +12,12 @@ public class App {
     public static void main(String[] args) {
 
         final Session session = HibernateUtil.getSessionFactory().openSession();
-        final Transaction trx = session.beginTransaction();
+        final Transaction trx = session.getTransaction();
 
         try {
             trx.begin();
-//            saveMessage(session,"Hello Basma from Hibernate");
-            updateMessage(session, 2L, "Hello from nowhere");
-//            deleteMessage(session, trx, 27L);
+            //savePerson(session);
+            getPerson(session, 1L);
             trx.commit();
         } catch (HibernateException e) {
             if (trx != null) {
@@ -30,18 +30,15 @@ public class App {
         HibernateUtil.shutdown();
     }
 
-    private static void saveMessage(final Session session, final String msg) {
-        Message message = new Message(msg);
-        session.save(message);
+    private static void savePerson(final Session session){
+        Address homeAddress = new Address("Molukkenstraat", "Den haag", "1000");
+        Address billingAddress = new Address("Witte de wit straat", "Rotterdam", "1000");
+        Person person = new Person("Ahmed", homeAddress, billingAddress);
+        session.save(person);
     }
 
-    private static void updateMessage(final Session session, final long messageId, final String msg) {
-        Message message = (Message) session.get(Message.class, messageId);
-        message.setText(msg);
-    }
-
-    private static void deleteMessage(final Session session, final long messageId) {
-        Message message = (Message) session.get(Message.class, messageId);
-        session.delete(message);
+    private static void getPerson(final Session session, long personId){
+        Person person = (Person) session.get(Person.class, personId);
+        System.out.println(person);
     }
 }
