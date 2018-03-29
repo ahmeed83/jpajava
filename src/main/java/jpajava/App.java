@@ -13,9 +13,9 @@ public class App {
         BookStoreService bookStoreService = new BookStoreService();
 
         //persisting object graph
-        //BookStoreClient.saveToDatabase(bookStoreService);
+        BookStoreClient.saveToDatabase(bookStoreService);
 
         //retrieving object graph
-        BookStoreClient.retrieveFromDatabase(bookStoreService);
+        //BookStoreClient.retrieveFromDatabase(bookStoreService);
     }
 }
