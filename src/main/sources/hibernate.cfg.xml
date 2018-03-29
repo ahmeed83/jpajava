@@ -5,13 +5,14 @@
 <hibernate-configuration>
     <session-factory>
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/helloworld</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/school</property>
         <property name="hibernate.connection.username">ahmed</property>
         <property name="hibernate.connection.password">password</property>
         <property name="show_sql">true</property>
         
         <property name="hbm2ddl.auto">update</property>
         
-        <mapping class="jpajava.domain.Person"/>
+        <mapping class="jpajava.domain.Student"/>
+        <mapping class="jpajava.domain.Guide"/>
     </session-factory>
 </hibernate-configuration>

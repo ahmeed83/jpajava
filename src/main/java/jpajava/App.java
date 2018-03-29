@@ -1,7 +1,7 @@
 package jpajava;
 
-import jpajava.domain.Address;
-import jpajava.domain.Person;
+import jpajava.domain.Guide;
+import jpajava.domain.Student;
 import jpajava.util.HibernateUtil;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -16,8 +16,10 @@ public class App {
 
         try {
             trx.begin();
+
             //savePerson(session);
             getPerson(session, 1L);
+
             trx.commit();
         } catch (HibernateException e) {
             if (trx != null) {
@@ -31,14 +33,14 @@ public class App {
     }
 
     private static void savePerson(final Session session){
-        Address homeAddress = new Address("Molukkenstraat", "Den haag", "1000");
-        Address billingAddress = new Address("Witte de wit straat", "Rotterdam", "1000");
-        Person person = new Person("Ahmed", homeAddress, billingAddress);
-        session.save(person);
+        Guide guide = new Guide("2000MO10789", "Mike Lawson", 1000);
+        Student student = new Student("2014JT50123", "John Smith", guide);
+        session.save(guide);
+        session.save(student);
     }
 
     private static void getPerson(final Session session, long personId){
-        Person person = (Person) session.get(Person.class, personId);
+        Student person = (Student) session.get(Student.class, personId);
         System.out.println(person);
     }
 }
