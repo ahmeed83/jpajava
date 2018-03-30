@@ -17,8 +17,10 @@ public class App {
         try {
             trx.begin();
 
-            //savePerson(session);
-            getPerson(session, 1L);
+            saveStudent(session);
+//            getStudent(session, 1L);
+//            deleteStudent(session, 3L);
+
 
             trx.commit();
         } catch (HibernateException e) {
@@ -32,15 +34,23 @@ public class App {
         HibernateUtil.shutdown();
     }
 
-    private static void savePerson(final Session session){
-        Guide guide = new Guide("2000MO10789", "Mike Lawson", 1000);
-        Student student = new Student("2014JT50123", "John Smith", guide);
-        session.save(guide);
-        session.save(student);
+    private static void deleteStudent(final Session session, final long studentId) {
+        Student student = (Student) session.get(Student.class, studentId);
+        session.delete(student);
     }
 
-    private static void getPerson(final Session session, long personId){
-        Student person = (Student) session.get(Student.class, personId);
-        System.out.println(person);
+    private static void saveStudent(final Session session){
+        Guide guide = new Guide("323232324ddswds", "Ahmed Aziz", 2000);
+        Student student = new Student("wu8y3y483hhx", "Hayder Aziz", guide);
+        //you use cascade so you don't have to save the guid object yourself
+        //session.save(guide);
+        //session.save(student);
+        // use persist and not save
+        session.persist(student);
+    }
+
+    private static void getStudent(final Session session, long studentId){
+        Student student = (Student) session.get(Student.class, studentId);
+        System.out.println(student);
     }
 }

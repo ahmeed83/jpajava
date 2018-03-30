@@ -3,13 +3,7 @@ package jpajava.domain;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Data
 @Entity
@@ -23,8 +17,9 @@ public class Student {
 	private String enrollmentId;	
 	
 	private String name;
-	
-	@ManyToOne
+
+	//if you use cascade then you don't have to save the Guide object separately anymore
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	@JoinColumn(name="guide_id")
 	private Guide guide;
 	
